@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:codex/codex_menu_bar.dart';
-import 'package:codex/kit/coder/base64_coder.dart';
-import 'package:codex/theme/theme.dart';
+import 'package:codex/app.dart';
 import 'package:flutter/material.dart';
 import 'package:window_size/window_size.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,32 +13,5 @@ void main() async {
     setWindowMinSize(const Size(640, 500));
   }
 
-  runApp(const CodexApp());
-}
-
-class CodexApp extends StatelessWidget {
-  const CodexApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CodeX',
-      theme: codexTheme(),
-      color: Colors.white,
-      home: const Scaffold(
-        body: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 160,
-              child: CodexMenuBar(),
-            ),
-            Expanded(
-              child: Base64Coder(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  runApp(const ProviderScope(child:CodexApp()));
 }

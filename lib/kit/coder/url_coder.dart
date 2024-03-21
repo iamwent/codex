@@ -1,29 +1,26 @@
-import 'dart:convert';
-
 import 'package:codex/kit/kit.dart';
 import 'package:codex/widget/codex_text_field.dart';
 import 'package:flutter/material.dart';
 
-class Base64Coder extends StatefulWidget {
-  const Base64Coder({super.key});
+class UrlCoder extends StatefulWidget {
+  const UrlCoder({super.key});
 
   static Kit kit = Kit(
-    name: 'Base64',
-    route: 'base64_coder',
-    icon: Icons.code_rounded,
-    builder: (context) => const Base64Coder(),
+    name: 'Url',
+    route: 'url_coder',
+    icon: Icons.link_outlined,
+    builder: (context) => const UrlCoder(),
   );
 
   @override
   State createState() {
-    return Base64CoderState();
+    return UrlCoderState();
   }
 }
 
-class Base64CoderState extends State<Base64Coder> {
+class UrlCoderState extends State<UrlCoder> {
   TextEditingController inputController = TextEditingController();
   TextEditingController outputController = TextEditingController();
-  final coder = utf8.fuse(base64);
 
   void encode(String? decoded) {
     if (decoded == null || decoded.isEmpty) {
@@ -31,7 +28,7 @@ class Base64CoderState extends State<Base64Coder> {
       return;
     }
 
-    outputController.text = coder.encode(decoded);
+    outputController.text = Uri.encodeComponent(decoded);
   }
 
   void decode(String? encoded) {
@@ -39,7 +36,7 @@ class Base64CoderState extends State<Base64Coder> {
       inputController.clear();
       return;
     }
-    inputController.text = coder.decode(encoded);
+    inputController.text = Uri.decodeComponent(encoded);
   }
 
   @override
@@ -62,10 +59,10 @@ class Base64CoderState extends State<Base64Coder> {
               children: [
                 Expanded(
                   child: CodexTextField(
-                    label: 'Text',
+                    label: 'Decoded',
                     controller: inputController,
                     onChanged: encode,
-                    hintText: 'Enter your raw text here',
+                    hintText: 'Enter your raw url here',
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -74,7 +71,7 @@ class Base64CoderState extends State<Base64Coder> {
                     label: 'Encoded',
                     controller: outputController,
                     onChanged: decode,
-                    hintText: 'Enter your encoded text here',
+                    hintText: 'Enter your encoded url here',
                   ),
                 ),
               ],

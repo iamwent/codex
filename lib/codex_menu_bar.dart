@@ -1,95 +1,39 @@
-import 'package:codex/kit/coder/base64_coder.dart';
+import 'package:codex/kit/home.dart';
+import 'package:codex/kit/kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Menu {
-  final String name;
-  final String route;
-  final IconData icon;
-
-  const Menu({
-    required this.name,
-    required this.route,
-    required this.icon,
-  });
-
-  Menu.home()
-      : name = 'Home',
-        route = 'home',
-        icon = Icons.home;
-}
-
-class MenuGroup {
-  final String name;
-  final List<Menu> menus;
-  final bool collapsed;
-
-  const MenuGroup({
-    required this.name,
-    required this.menus,
-    required this.collapsed,
-  });
-}
-
-class CodexMenuBar extends StatefulWidget {
+class CodexMenuBar extends ConsumerStatefulWidget {
   const CodexMenuBar({super.key});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<ConsumerStatefulWidget> createState() {
     return CodexMenuBarState();
   }
 }
 
-class CodexMenuBarState extends State<CodexMenuBar> {
-  final groups = [
-    const MenuGroup(
-      name: 'Encoders / Decoders',
-      menus: [
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-      ],
-      collapsed: false,
-    ),
-    const MenuGroup(
-      name: 'Encoders / Decoders',
-      menus: [
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-      ],
-      collapsed: false,
-    ),
-    const MenuGroup(
-      name: 'Encoders / Decoders',
-      menus: [
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-        Menu(name: 'Base64', route: Base64Coder.route, icon: Icons.code_rounded),
-      ],
-      collapsed: false,
-    ),
-  ];
+class CodexMenuBarState extends ConsumerState<CodexMenuBar> {
+  void filter(String? input) {
+    ref.read(kitStoreProvider.notifier).filter(input);
+  }
 
-  void filter(String? input) {}
+  void goto(Kit kit) {
+    ref.read(kitStoreProvider.notifier).goto(kit);
+  }
 
-  Widget menuItem(Menu menu, VoidCallback onPressed) => TextButton.icon(
-        onPressed: onPressed,
+  Widget menuItem(Kit kit) => TextButton.icon(
+        onPressed: () {
+          goto(kit);
+        },
         style: TextButton.styleFrom(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
           alignment: Alignment.centerLeft,
         ),
-        icon: Icon(menu.icon),
-        label: Text(menu.name),
+        icon: Icon(kit.icon),
+        label: Text(kit.name),
       );
 
-  Widget menuGroup(MenuGroup group) {
-    final menus = group.menus.map(
-      (menu) => menuItem(menu, () {}),
-    );
-
+  Widget menuGroup(KitGroup group) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,14 +50,16 @@ class CodexMenuBarState extends State<CodexMenuBar> {
             Icon(group.collapsed ? Icons.chevron_right : Icons.chevron_right),
           ],
         ),
-        ...menus,
+        ...group.kits.map(
+          (kit) => menuItem(kit),
+        ),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final menuGroups = groups.map((group) => menuGroup(group));
+    final kitGroups = ref.read(kitStoreProvider.notifier).kitGroups;
 
     return SingleChildScrollView(
       child: Padding(
@@ -136,8 +82,8 @@ class CodexMenuBarState extends State<CodexMenuBar> {
               ),
             ),
             const SizedBox(height: 12),
-            menuItem(Menu.home(), () {}),
-            ...menuGroups,
+            menuItem(Home.kit),
+            ...kitGroups.map((group) => menuGroup(group)),
           ],
         ),
       ),
