@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:codex/codex_menu_bar.dart';
 import 'package:codex/kit/coder/base64_coder.dart';
 import 'package:codex/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,18 @@ class CodexApp extends StatelessWidget {
       theme: codexTheme(),
       color: Colors.white,
       home: const Scaffold(
-        body: Base64Coder(),
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 160,
+              child: CodexMenuBar(),
+            ),
+            Expanded(
+              child: Base64Coder(),
+            ),
+          ],
+        ),
       ),
     );
   }

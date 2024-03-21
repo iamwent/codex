@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class Base64Coder extends StatefulWidget {
   const Base64Coder({super.key});
 
+  static const route = 'base64_coder';
+
   @override
   State createState() {
     return Base64CoderState();
