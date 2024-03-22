@@ -7,6 +7,9 @@ class CodexTextField extends StatefulWidget {
 
   final String label;
   final String? hintText;
+  final bool? pastable;
+  final bool? copyable;
+  final bool? readOnly;
 
   const CodexTextField({
     super.key,
@@ -14,6 +17,9 @@ class CodexTextField extends StatefulWidget {
     this.onChanged,
     required this.label,
     this.hintText,
+    this.pastable,
+    this.copyable,
+    this.readOnly,
   });
 
   @override
@@ -43,21 +49,26 @@ class CodexTextFieldState extends State<CodexTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final pastable = widget.pastable ?? true;
+    final copyable = widget.copyable ?? true;
+    final readOnly = widget.readOnly ?? false;
     return Column(
       children: [
         Row(
           children: [
             Text(widget.label),
             const Spacer(),
-            TextButton.icon(
-              onPressed: pasteFromClipboard,
-              icon: const Icon(Icons.paste_outlined),
-              label: const Text('Paste'),
-            ),
-            IconButton(
-              onPressed: copyToClipboard,
-              icon: const Icon(Icons.copy_outlined),
-            ),
+            if (pastable)
+              TextButton.icon(
+                onPressed: pasteFromClipboard,
+                icon: const Icon(Icons.paste_outlined),
+                label: const Text('Paste'),
+              ),
+            if (copyable)
+              IconButton(
+                onPressed: copyToClipboard,
+                icon: const Icon(Icons.copy_outlined),
+              ),
           ],
         ),
         Expanded(
@@ -66,6 +77,7 @@ class CodexTextFieldState extends State<CodexTextField> {
             onChanged: widget.onChanged,
             maxLines: double.maxFinite.toInt(),
             keyboardType: TextInputType.multiline,
+            readOnly: readOnly,
             decoration: InputDecoration(
               hintText: widget.hintText,
               border: const OutlineInputBorder(
