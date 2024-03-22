@@ -19,6 +19,8 @@ mixin _$Kit {
   String get name => throw _privateConstructorUsedError;
   String get route => throw _privateConstructorUsedError;
   IconData get icon => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
   WidgetBuilder get builder => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +32,13 @@ abstract class $KitCopyWith<$Res> {
   factory $KitCopyWith(Kit value, $Res Function(Kit) then) =
       _$KitCopyWithImpl<$Res, Kit>;
   @useResult
-  $Res call({String name, String route, IconData icon, WidgetBuilder builder});
+  $Res call(
+      {String name,
+      String route,
+      IconData icon,
+      String description,
+      String? category,
+      WidgetBuilder builder});
 }
 
 /// @nodoc
@@ -48,6 +56,8 @@ class _$KitCopyWithImpl<$Res, $Val extends Kit> implements $KitCopyWith<$Res> {
     Object? name = null,
     Object? route = null,
     Object? icon = null,
+    Object? description = null,
+    Object? category = freezed,
     Object? builder = null,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +73,14 @@ class _$KitCopyWithImpl<$Res, $Val extends Kit> implements $KitCopyWith<$Res> {
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as IconData,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
       builder: null == builder
           ? _value.builder
           : builder // ignore: cast_nullable_to_non_nullable
@@ -77,7 +95,13 @@ abstract class _$$KitImplCopyWith<$Res> implements $KitCopyWith<$Res> {
       __$$KitImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String route, IconData icon, WidgetBuilder builder});
+  $Res call(
+      {String name,
+      String route,
+      IconData icon,
+      String description,
+      String? category,
+      WidgetBuilder builder});
 }
 
 /// @nodoc
@@ -92,6 +116,8 @@ class __$$KitImplCopyWithImpl<$Res> extends _$KitCopyWithImpl<$Res, _$KitImpl>
     Object? name = null,
     Object? route = null,
     Object? icon = null,
+    Object? description = null,
+    Object? category = freezed,
     Object? builder = null,
   }) {
     return _then(_$KitImpl(
@@ -107,6 +133,14 @@ class __$$KitImplCopyWithImpl<$Res> extends _$KitCopyWithImpl<$Res, _$KitImpl>
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as IconData,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
       builder: null == builder
           ? _value.builder
           : builder // ignore: cast_nullable_to_non_nullable
@@ -122,6 +156,8 @@ class _$KitImpl implements _Kit {
       {required this.name,
       required this.route,
       required this.icon,
+      required this.description,
+      this.category,
       required this.builder});
 
   @override
@@ -131,11 +167,15 @@ class _$KitImpl implements _Kit {
   @override
   final IconData icon;
   @override
+  final String description;
+  @override
+  final String? category;
+  @override
   final WidgetBuilder builder;
 
   @override
   String toString() {
-    return 'Kit(name: $name, route: $route, icon: $icon, builder: $builder)';
+    return 'Kit(name: $name, route: $route, icon: $icon, description: $description, category: $category, builder: $builder)';
   }
 
   @override
@@ -146,11 +186,16 @@ class _$KitImpl implements _Kit {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.route, route) || other.route == route) &&
             (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.builder, builder) || other.builder == builder));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, route, icon, builder);
+  int get hashCode => Object.hash(
+      runtimeType, name, route, icon, description, category, builder);
 
   @JsonKey(ignore: true)
   @override
@@ -164,6 +209,8 @@ abstract class _Kit implements Kit {
       {required final String name,
       required final String route,
       required final IconData icon,
+      required final String description,
+      final String? category,
       required final WidgetBuilder builder}) = _$KitImpl;
 
   @override
@@ -172,6 +219,10 @@ abstract class _Kit implements Kit {
   String get route;
   @override
   IconData get icon;
+  @override
+  String get description;
+  @override
+  String? get category;
   @override
   WidgetBuilder get builder;
   @override

@@ -10,7 +10,9 @@ class Base64Coder extends StatefulWidget {
   static Kit kit = Kit(
     name: 'Base64',
     route: 'base64_coder',
+    description: 'Encode and decode Base64 data',
     icon: Icons.code_rounded,
+    category: KitGroup.coder,
     builder: (context) => const Base64Coder(),
   );
 
@@ -44,44 +46,41 @@ class Base64CoderState extends State<Base64Coder> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Base64 Encoders / Decoders",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "${Base64Coder.kit.name} ${Base64Coder.kit.category}",
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: CodexTextField(
-                    label: 'Text',
-                    controller: inputController,
-                    onChanged: encode,
-                    hintText: 'Enter your raw text here',
-                  ),
+        ),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: CodexTextField(
+                  label: 'Text',
+                  controller: inputController,
+                  onChanged: encode,
+                  hintText: 'Enter your raw text here',
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: CodexTextField(
-                    label: 'Encoded',
-                    controller: outputController,
-                    onChanged: decode,
-                    hintText: 'Enter your encoded text here',
-                  ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: CodexTextField(
+                  label: 'Encoded',
+                  controller: outputController,
+                  onChanged: decode,
+                  hintText: 'Enter your encoded text here',
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

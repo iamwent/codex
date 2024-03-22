@@ -8,7 +8,9 @@ class UrlCoder extends StatefulWidget {
   static Kit kit = Kit(
     name: 'Url',
     route: 'url_coder',
+    description: 'Encode or decode all the applicable characters to their corresponding URL',
     icon: Icons.link_outlined,
+    category: KitGroup.coder,
     builder: (context) => const UrlCoder(),
   );
 
@@ -41,44 +43,41 @@ class UrlCoderState extends State<UrlCoder> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Base64 Encoders / Decoders",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "${UrlCoder.kit.name} ${UrlCoder.kit.category}",
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: CodexTextField(
-                    label: 'Decoded',
-                    controller: inputController,
-                    onChanged: encode,
-                    hintText: 'Enter your raw url here',
-                  ),
+        ),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: CodexTextField(
+                  label: 'Decoded',
+                  controller: inputController,
+                  onChanged: encode,
+                  hintText: 'Enter your raw url here',
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: CodexTextField(
-                    label: 'Encoded',
-                    controller: outputController,
-                    onChanged: decode,
-                    hintText: 'Enter your encoded url here',
-                  ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: CodexTextField(
+                  label: 'Encoded',
+                  controller: outputController,
+                  onChanged: decode,
+                  hintText: 'Enter your encoded url here',
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

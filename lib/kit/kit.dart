@@ -14,12 +14,17 @@ class Kit with _$Kit {
     required String name,
     required String route,
     required IconData icon,
+    required String description,
+    String? category,
     required WidgetBuilder builder,
   }) = _Kit;
 }
 
 @freezed
 class KitGroup with _$KitGroup {
+  static const String all = 'All';
+  static const String coder = 'Encoder / Decoder';
+
   const factory KitGroup({
     required String name,
     required List<Kit> kits,

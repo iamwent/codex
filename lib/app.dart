@@ -23,7 +23,10 @@ class CodexApp extends ConsumerWidget {
               child: CodexMenuBar(),
             ),
             Expanded(
-              child: kitStore.builder.call(context),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: kitStore.builder.call(context),
+              ),
             ),
           ],
         ),

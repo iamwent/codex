@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:codex/app.dart';
 import 'package:flutter/material.dart';
-import 'package:window_size/window_size.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:window_size/window_size.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,5 +13,5 @@ void main() async {
     setWindowMinSize(const Size(640, 500));
   }
 
-  runApp(const ProviderScope(child:CodexApp()));
+  runApp(const ProviderScope(child: CodexApp()));
 }
