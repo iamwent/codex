@@ -1,5 +1,6 @@
 import 'package:codex/kit/coder/base64_coder.dart';
 import 'package:codex/kit/coder/url_coder.dart';
+import 'package:codex/kit/formatter/json_formatter.dart';
 import 'package:codex/kit/home.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,6 +25,7 @@ class Kit with _$Kit {
 class KitGroup with _$KitGroup {
   static const String all = 'All';
   static const String coder = 'Encoder / Decoder';
+  static const String formatter = 'Formatter';
 
   const factory KitGroup({
     required String name,
@@ -40,6 +42,13 @@ class KitStore extends _$KitStore {
       kits: [
         Base64Coder.kit,
         UrlCoder.kit,
+      ],
+      collapsed: false,
+    ),
+    KitGroup(
+      name: 'Formatter',
+      kits: [
+        JsonFormatter.kit,
       ],
       collapsed: false,
     ),

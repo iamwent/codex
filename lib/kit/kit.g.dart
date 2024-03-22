@@ -6,7 +6,7 @@ part of 'kit.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$kitStoreHash() => r'fd93f4009b194ebe921d987ecc9a867a1bf18446';
+String _$kitStoreHash() => r'8c9d1dd73dbb5b50124489871c345799fb20dc1f';
 
 /// See also [KitStore].
 @ProviderFor(KitStore)
